@@ -1,5 +1,5 @@
 {
-  "name": "node-media-server",
+  "name": "node-media-server-with-auth-middleware",
   "version": "2.6.2",
   "description": "A Node.js implementation of RTMP Server",
   "bin": "bin/app.js",
