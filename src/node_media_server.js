@@ -15,8 +15,9 @@ const context = require('./node_core_ctx');
 const Package = require('../package.json');
 
 class NodeMediaServer {
-  constructor(config) {
+  constructor(config, customNHSMiddleware) {
     this.config = config;
+    this.customNHSMiddleware = customNHSMiddleware;
   }
 
   run() {
@@ -28,7 +29,7 @@ class NodeMediaServer {
     }
 
     if (this.config.http) {
-      this.nhs = new NodeHttpServer(this.config);
+      this.nhs = new NodeHttpServer(this.config,this.customNHSMiddleware);    
       this.nhs.run();
     }
 

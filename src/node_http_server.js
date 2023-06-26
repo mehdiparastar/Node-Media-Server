@@ -25,15 +25,19 @@ const serverRoute = require('./api/routes/server');
 const relayRoute = require('./api/routes/relay');
 
 class NodeHttpServer {
-  constructor(config) {
+  constructor(config, customMiddleware) {
     this.port = config.http.port || HTTP_PORT;
     this.mediaroot = config.http.mediaroot || HTTP_MEDIAROOT;
     this.config = config;
+    this.customMiddleware=customMiddleware
 
     let app = Express();
     app.use(bodyParser.json());
 
     app.use(bodyParser.urlencoded({ extended: true }));
+    if(this.customMiddleware){
+      app.use(customMiddleware)
+    }
 
     app.all('*', (req, res, next) => {
       res.header('Access-Control-Allow-Origin', this.config.http.allow_origin);
